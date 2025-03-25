@@ -318,50 +318,39 @@ def register_all_ade20k(root):
 
 
 _PREDEFINED_CD = [
-    ("DIOR_train", "DIOR/train/new_train", "DIOR/annotations/train.json"),
-    ("DIOR_test", "DIOR/test/new_test", "DIOR/annotations/test.json"),
-    ("ArTaxOr_train", "ArTaxOr/train", "ArTaxOr/annotations/train.json"),
-    ("ArTaxOr_test", "ArTaxOr/test", "ArTaxOr/annotations/test.json"),
-    ("UODD_train", "UODD/train", "UODD/annotations/train.json"),
-    ("UODD_test", "UODD/test", "UODD/annotations/test.json"),
-    ("FISH_train", "FISH/train", "FISH/annotations/train.json"),
-    ("FISH_test", "FISH/test", "FISH/annotations/test.json"),
-    ("NEUDET_train", "NEU-DET/train", "NEU-DET/annotations/train.json"),
-    ("NEUDET_test", "NEU-DET/test", "NEU-DET/annotations/test.json"),
-    ("clipart1k_train", "clipart1k/train", "clipart1k/annotations/train.json"),
-    ("clipart1k_test", "clipart1k/test", "clipart1k/annotations/test.json")
+    # ("DIOR_train", "DIOR/train/new_train", "DIOR/annotations/train.json"),
+    # ("DIOR_test", "DIOR/test/new_test", "DIOR/annotations/test.json"),
+    # ("ArTaxOr_train", "ArTaxOr/train", "ArTaxOr/annotations/train.json"),
+    # ("ArTaxOr_test", "ArTaxOr/test", "ArTaxOr/annotations/test.json"),
+    # ("UODD_train", "UODD/train", "UODD/annotations/train.json"),
+    # ("UODD_test", "UODD/test", "UODD/annotations/test.json"),
+    # ("FISH_train", "FISH/train", "FISH/annotations/train.json"),
+    # ("FISH_test", "FISH/test", "FISH/annotations/test.json"),
+    # ("NEUDET_train", "NEU-DET/train", "NEU-DET/annotations/train.json"),
+    # ("NEUDET_test", "NEU-DET/test", "NEU-DET/annotations/test.json"),
+    # ("clipart1k_train", "clipart1k/train", "clipart1k/annotations/train.json"),
+    # ("clipart1k_test", "clipart1k/test", "clipart1k/annotations/test.json"),
+    ("dataset1_test", "dataset1/test", "dataset1/annotations/test.json"),
+    ("dataset2_test", "dataset2/test", "dataset2/annotations/test.json"),
+    ("dataset3_test", "dataset3/test", "dataset3/annotations/test.json")
+    
 ]
 
 for shot in [1, 5, 10]:
-    new_anns = ("DIOR_{}shot".format(shot),
-                "DIOR/train/new_train",
-                "DIOR/annotations/{}_shot.json".format(shot))
+  
+    new_anns = ("dataset1_{}shot".format(shot),
+                "dataset1/train",
+                "dataset1/annotations/{}_shot.json".format(shot))
     _PREDEFINED_CD.append(new_anns)
-
-    new_anns = ("ArTaxOr_{}shot".format(shot),
-                "ArTaxOr/train",
-                "ArTaxOr/annotations/{}_shot.json".format(shot))
+    
+    new_anns = ("dataset2_{}shot".format(shot),
+                "dataset2/train",
+                "dataset2/annotations/{}_shot.json".format(shot))
     _PREDEFINED_CD.append(new_anns)
-
-    new_anns = ("UODD_{}shot".format(shot),
-                "UODD/train",
-                "UODD/annotations/{}_shot.json".format(shot))
-    _PREDEFINED_CD.append(new_anns)
-
-    # newly added
-    new_anns = ("FISH_{}shot".format(shot),
-                "FISH/train",
-                "FISH/annotations/{}_shot.json".format(shot))
-    _PREDEFINED_CD.append(new_anns)
-
-    new_anns = ("NEUDET_{}shot".format(shot),
-                "NEU-DET/train",
-                "NEU-DET/annotations/{}_shot.json".format(shot))
-    _PREDEFINED_CD.append(new_anns)
-
-    new_anns = ("clipart1k_{}shot".format(shot),
-                "clipart1k/train",
-                "clipart1k/annotations/{}_shot.json".format(shot))
+    
+    new_anns = ("dataset3_{}shot".format(shot),
+                "dataset3/train",
+                "dataset3/annotations/{}_shot.json".format(shot))
     _PREDEFINED_CD.append(new_anns)
 
 def register_all_CD(root):
