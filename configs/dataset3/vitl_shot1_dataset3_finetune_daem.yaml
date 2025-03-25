@@ -1,0 +1,90 @@
+_BASE_: "vitl_shot1_dataset3_finetune.yaml"
+# 保留所有原始配置，并添加DAEM特定配置
+
+# 修改DE配置 - 保持原有功能不变
+DE:
+  CONTROLLER: True      # 恢复为True，保留原有DE功能
+  # 其他DE配置保持不变
+
+# 域适应增强模块(DAEM)配置
+DAEM:
+  # 启用DAEM模块
+  ENABLED: True               # [True/False] 可设置为False完全关闭DAEM模块
+  
+  # DAEM增强强度
+  STRENGTH: 0.8              # [0.0-1.0] 增强强度
+    # 学习率设置
+  LR_MULTIPLIER: 2.0         # DAEM模块学习率倍数
+  BACKBONE_LR_FACTOR: 1.0     # 基础网络学习率因子
+  BIAS_LR_FACTOR: 2.0         # 偏置学习率因子
+  
+  # 基本参数
+  FEATURE_ALIGNMENT: True    # 特征对齐
+  MMD_WEIGHT: 0.16          # MMD损失权重
+  STYLE_WEIGHT: 0.12        # 风格迁移权重
+  
+  # 学习参数
+  WARM_UP_ITERS: 500        # 预热迭代数
+  LR_MULTIPLIER: 1.0        # DAEM学习率乘数
+  BACKBONE_LR_FACTOR: 1.0   # 主干网络学习率因子
+  BIAS_LR_FACTOR: 2.0       # 偏置学习率因子
+  
+  # 冻结策略
+  FREEZE_BACKBONE: True       # 冻结主干网络
+  FREEZE_RPN: True            # 冻结RPN
+  FREEZE_ROI_HEADS: False     # 不冻结ROI头
+
+  # 高级功能（仅在IMPLEMENTATION="advanced"时生效）
+  PROTOTYPE_REFINE: False     # 原型精炼
+  PROTOTYPE_MOMENTUM: 0.9     # 原型动量
+  ATTENTION_ADAPT: False      # 注意力适应
+  ATTENTION_COEF: 0.2         # 注意力系数
+  
+  # 对比学习参数（高级模式）
+  CONTRASTIVE_ENABLED: False  # 对比学习功能开关
+  CONTRASTIVE_TEMP: 0.2       # 温度参数
+  CONT_INSTANCE_WEIGHT: 0.2   # 实例级对比学习权重
+  CONT_DOMAIN_WEIGHT: 0.6     # 域级对比学习权重
+  CONT_PROTOTYPE_WEIGHT: 0.2  # 原型级对比学习权重
+  
+  # 对比学习高级功能
+  ADAPTIVE_TEMP: False        # 自适应温度调整
+  HARD_NEGATIVE_MINING: False # 困难负样本挖掘
+  CROSS_DOMAIN_CONTRAST: False # 跨域对比学习
+  FEATURE_DECOUPLING: False   # 特征解耦
+  
+  # 域提示器功能
+  DOMAIN_PROMPTER_ENABLED: False # 域提示器功能开关
+  DOMAIN_PROMPTER_RATIO: 3.0  # 域提示器数量倍数
+  PROMPTER_TEMP: 2.0          # 域提示器对比学习温度
+  PROTOTYPE_TEMP: 2.5         # 原型对比学习温度
+  
+  # 正则化功能
+  CONTEXT_ENHANCE: False      # 上下文增强
+  MULTI_LEVEL_ADAPT: False    # 多尺度适应
+  HARD_MINING: False          # 困难样本挖掘
+  HARD_MINING_RATIO: 0.3      # 困难样本比例
+  
+  # 不确定性处理
+  UNCERTAINTY_GUIDED: False   # 不确定性引导
+  UNCERTAINTY_THRESHOLD: 0.6  # 不确定性阈值
+  
+  # 对抗训练
+  ADVERSARIAL_TRAINING: False # 对抗训练功能开关
+  ADV_WEIGHT: 0.1             # 对抗损失权重
+
+# 修改模型检测阈值，提高召回率
+MODEL:
+  ROI_HEADS:
+    SCORE_THRESH_TEST: 0.05   # 测试时大幅降低检测阈值，默认通常为0.5
+
+# 训练配置优化
+SOLVER:
+  MAX_ITER: 100
+  STEPS: (50, 80)
+  CHECKPOINT_PERIOD: 100
+  
+# 较低的评估频率
+TEST:
+  EVAL_PERIOD: 50
+
