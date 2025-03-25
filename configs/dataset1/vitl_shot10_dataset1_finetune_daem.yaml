@@ -1,0 +1,66 @@
+_BASE_: "vitl_shot10_dataset1_finetune.yaml"
+
+# DAEM配置
+DAEM:
+  ENABLED: True               # 启用DAEM模块
+  STRENGTH: 0.8              # 增强强度
+  
+  # 学习率设置
+  LR_MULTIPLIER: 2.0         # DAEM模块学习率倍数
+  BACKBONE_LR_FACTOR: 1.0     # 基础网络学习率因子
+  BIAS_LR_FACTOR: 2.0         # 偏置学习率因子
+  
+  # 冻结策略
+  FREEZE_BACKBONE: True       # 冻结主干网络
+  FREEZE_RPN: True            # 冻结RPN
+  FREEZE_ROI_HEADS: False     # 不冻结ROI头
+
+  # 特征对齐
+  FEATURE_ALIGNMENT: True    # 特征对齐
+  MMD_WEIGHT: 0.16            # MMD损失权重
+  STYLE_WEIGHT: 0.12          # 风格权重
+  
+  # 对比学习参数
+  CONTRASTIVE_ENABLED: False  # 对比学习功能开关
+  CONTRASTIVE_TEMP: 0.2       # 温度参数
+  CONT_INSTANCE_WEIGHT: 0.2   # 实例级对比学习权重
+  CONT_DOMAIN_WEIGHT: 0.6     # 域级对比学习权重
+  CONT_PROTOTYPE_WEIGHT: 0.2  # 原型级对比学习权重
+  
+  # 对比学习高级功能
+  ADAPTIVE_TEMP: False        # 自适应温度调整
+  HARD_NEGATIVE_MINING: False # 困难负样本挖掘
+  CROSS_DOMAIN_CONTRAST: False # 跨域对比学习
+  FEATURE_DECOUPLING: False   # 特征解耦
+  
+  # 域提示器功能
+  DOMAIN_PROMPTER_ENABLED: False # 域提示器功能开关
+  DOMAIN_PROMPTER_RATIO: 3.0  # 域提示器数量倍数
+  PROMPTER_TEMP: 2.0          # 域提示器对比学习温度
+  PROTOTYPE_TEMP: 2.5         # 原型对比学习温度
+  
+  # 正则化功能
+  CONTEXT_ENHANCE: False      # 上下文增强
+  MULTI_LEVEL_ADAPT: False    # 多尺度适应
+  HARD_MINING: False          # 困难样本挖掘
+  HARD_MINING_RATIO: 0.3      # 困难样本比例
+  
+  # 不确定性处理
+  UNCERTAINTY_GUIDED: False   # 不确定性引导
+  UNCERTAINTY_THRESHOLD: 0.6  # 不确定性阈值
+  
+  # 对抗训练
+  ADVERSARIAL_TRAINING: False # 对抗训练功能开关
+  ADV_WEIGHT: 0.1             # 对抗损失权重
+
+# 修改模型检测阈值，提高召回率
+MODEL:
+  ROI_HEADS:
+    SCORE_THRESH_TEST: 0.05   # 测试时大幅降低检测阈值，默认通常为0.5
+
+# 训练配置优化
+SOLVER:
+  MAX_ITER: 150
+  STEPS: (75, 120)
+  CHECKPOINT_PERIOD: 50
+  

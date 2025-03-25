@@ -1,0 +1,71 @@
+_BASE_: "vitl_shot10_dataset1_finetune.yaml"
+# 保留所有原始配置，并添加DAEM特定配置
+
+# 修改DE配置 - 保持原有功能不变
+DE:
+  CONTROLLER: True      # 恢复为True，保留原有DE功能
+  # 其他DE配置保持不变
+
+# 域适应增强模块(DAEM)配置
+DAEM:
+  # 启用DAEM模块
+  ENABLED: True               # [True/False] 可设置为False完全关闭DAEM模块
+  
+  # DAEM增强强度
+  STRENGTH: 0.8              # [0.0-1.0] 增强强度
+    # 学习率设置
+  LR_MULTIPLIER: 2.0         # DAEM模块学习率倍数
+  BACKBONE_LR_FACTOR: 1.0     # 基础网络学习率因子
+  BIAS_LR_FACTOR: 2.0         # 偏置学习率因子
+  
+  # 基本参数
+  FEATURE_ALIGNMENT: True    # 特征对齐
+  MMD_WEIGHT: 0.16          # MMD损失权重
+  STYLE_WEIGHT: 0.12        # 风格迁移权重
+  
+  # ----- 创新模块：对比学习 -----
+  # 对比学习基础设置 - 当前关闭但保留参数
+  CONTRASTIVE_ENABLED: False  # [True/False] 设置为False关闭对比学习
+  CONTRASTIVE_TEMP: 0.15      # [0.05-0.2] 10-shot温度更低，增强聚类
+  CONT_INSTANCE_WEIGHT: 0.3   # [0.2-0.7] 10-shot实例权重更高
+  CONT_DOMAIN_WEIGHT: 0.5     # [0.2-0.6] 域权重更低
+  CONT_PROTOTYPE_WEIGHT: 0.2  # [0.2-0.6] 保持相同权重
+  
+  # 对比学习高级功能 - 当前关闭
+  ADAPTIVE_TEMP: False        # [True/False] 自适应温度调整
+  HARD_NEGATIVE_MINING: False # [True/False] 困难负样本挖掘
+  CROSS_DOMAIN_CONTRAST: False # [True/False] 跨域对比学习
+  FEATURE_DECOUPLING: False   # [True/False] 特征解耦
+  
+  # ----- 创新模块：域提示器 -----
+  # 域提示器相关设置 - 当前关闭
+  DOMAIN_PROMPTER_ENABLED: False 
+  DOMAIN_PROMPTER_RATIO: 2.5  # [1.5-4.0] 10-shot域提示器比例更低
+  PROMPTER_TEMP: 1.6          # [0.8-2.0] 10-shot温度更低
+  PROTOTYPE_TEMP: 2.0         # [1.0-2.5] 10-shot温度更低
+  
+  # ----- 创新模块：域适应功能 -----
+  # 特征对齐相关功能 - 当前关闭
+  FEATURE_ALIGNMENT: False    # 关闭特征对齐
+  ATTENTION_ADAPT: False      # 关闭注意力适应
+  MMD_WEIGHT: 0.16            # [0.05-0.3] 10-shot MMD权重更低
+  STYLE_WEIGHT: 0.12          # [0.05-0.2] 10-shot风格权重更低
+  ATTENTION_COEF: 0.22        # [0.0-0.5] 10-shot注意力系数更低
+  
+  # ----- 创新模块：正则化功能 -----
+  # 增强模型泛化能力的功能 - 当前关闭
+  CONTEXT_ENHANCE: False      # 关闭上下文增强
+  MULTI_LEVEL_ADAPT: False    # 关闭多尺度适应
+  HARD_MINING: False          # 关闭困难样本挖掘
+  HARD_MINING_RATIO: 0.2      # [0.1-0.5] 10-shot困难样本比例更低
+  
+  # ----- 创新模块：不确定性处理 -----
+  # 不确定性相关功能 - 当前关闭
+  UNCERTAINTY_GUIDED: False   # 关闭不确定性引导
+  UNCERTAINTY_THRESHOLD: 0.5  # [0.4-0.8] 10-shot不确定性阈值更低
+  
+  # ----- 创新模块：对抗训练 -----
+  # 对抗训练相关功能 - 当前关闭
+  ADVERSARIAL_TRAINING: False # 关闭对抗训练
+  ADV_WEIGHT: 0.1             # [0.05-0.2] 对抗损失权重保持不变
+
