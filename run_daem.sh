@@ -25,8 +25,8 @@ echo "开始使用域适应增强模块(DAEM)训练模型..."
 # 数据集、shot数和模型配置
 datalist=(
 dataset1
-#dataset2
-#dataset3
+dataset2
+dataset3
 )
 shot_list=(
 1
