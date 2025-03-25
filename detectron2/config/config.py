@@ -23,7 +23,7 @@ class CfgNode(_CfgNode):
 
     @classmethod
     def _open_cfg(cls, filename):
-        return PathManager.open(filename, "r", encoding="utf-8")
+        return PathManager.open(filename, "r")
 
     # Note that the default value of allow_unsafe is changed to True
     def merge_from_file(self, cfg_filename: str, allow_unsafe: bool = True) -> None:
