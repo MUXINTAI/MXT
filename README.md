@@ -21,6 +21,7 @@ The Domain Adaptation Enhancement Module (DAEM) is designed for cross-domain few
 ### Setting Up the Environment
 
 ```bash
+#cd MXT
 # Create and activate conda environment
 conda create -n cdfsod python=3.9
 conda activate cdfsod
@@ -32,10 +33,7 @@ pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 -f https://download.py
 pip install -r requirements.txt
 
 # Install detectron2
-python -m pip install -e detectron2
-
-# Build project
-python setup.py develop
+pip install -e ./
 ```
 
 ## Directory Structure
